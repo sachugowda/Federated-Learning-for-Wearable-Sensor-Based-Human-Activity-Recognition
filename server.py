@@ -56,7 +56,9 @@ class AggregateCustomMetricStrategy(fl.server.strategy.FedAvg):
 # Create strategy and run server
 #strategy = SaveModelStrategy()
 
-strategy = AggregateCustomMetricStrategy(fraction_fit=0.5, fraction_eval=0.5,)
+strategy = AggregateCustomMetricStrategy(fraction_fit=0.5, fraction_eval=0.5,min_fit_clients=4,
+        min_eval_clients=4,
+        min_available_clients=4,)
 
 # Start Flower server for three rounds of federated learning with 1Gb of data
 fl.server.start_server(
