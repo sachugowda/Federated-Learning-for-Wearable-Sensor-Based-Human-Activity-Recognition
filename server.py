@@ -21,7 +21,7 @@ class AggregateCustomMetricStrategy(fl.server.strategy.FedAvg):
         rnd: int,
         results: List[Tuple[fl.server.client_proxy.ClientProxy, fl.common.FitRes]],
         failures: List[BaseException],
-    ) -> Optional[fl.common.Weights]:
+    ) -> Optional[fl.common.NDArrays]:
         aggregated_weights = super().aggregate_fit(rnd, results, failures)
         if aggregated_weights is not None:
             # Save aggregated_weights
@@ -56,14 +56,15 @@ class AggregateCustomMetricStrategy(fl.server.strategy.FedAvg):
 # Create strategy and run server
 #strategy = SaveModelStrategy()
 
-strategy = AggregateCustomMetricStrategy(fraction_fit=0.5, fraction_eval=0.5,min_fit_clients=4,
-        min_eval_clients=4,
+strategy = AggregateCustomMetricStrategy(fraction_fit=0.5, fraction_evaluate=0.5,min_fit_clients=4,
+        min_evaluate_clients=4,
         min_available_clients=4,)
 
 # Start Flower server for three rounds of federated learning with 1Gb of data
 fl.server.start_server(
         server_address = "127.0.0.1:8080" , 
-        config={"num_rounds": 5} ,
+        # config={"num_rounds": 5} ,
+        config = fl.server.ServerConfig(num_rounds = 5),
         #grpc_max_message_length = 1024*1024*1024,
         strategy = strategy
         

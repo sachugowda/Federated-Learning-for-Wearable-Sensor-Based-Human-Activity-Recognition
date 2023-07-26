@@ -156,7 +156,7 @@ def create_dataset(X, y, time_steps, step=1):
         x = X.iloc[i:(i + time_steps)].values
         labels = y.iloc[i: i + time_steps]
         Xs.append(x)
-        ys.append(stats.mode(labels)[0][0])
+        ys.append(stats.mode(labels)[0])
     return np.array(Xs), np.array(ys).reshape(-1, 1) 
     
 
@@ -193,7 +193,7 @@ model.compile(
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
     
-        def get_parameters(self):
+        def get_parameters(self,config):
             return model.get_weights()
 
         def fit(self, parameters, config):
