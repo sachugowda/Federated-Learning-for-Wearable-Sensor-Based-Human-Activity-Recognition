@@ -3,7 +3,6 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import Model
 from tensorflow.keras.initializers import TruncatedNormal
 from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler, Callback
-from tensorflow_addons.optimizers import AdamW
 #from wandb.keras import WandbCallback
 from sklearn.model_selection import train_test_split 
 
